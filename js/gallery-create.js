@@ -1,6 +1,7 @@
 const refs = {
   galleryList: document.querySelector('.js-gallery'), //общий родитель картинок
   modal: document.querySelector('.js-lightbox'), //модальное окно
+  images: document.querySelectorAll('.gallery__image'),
   modalCloseBtn: document.querySelector('button[data-action="close-lightbox"]'), //кнопка закрытия модального окна
   modalImage: document.querySelector('.lightbox__image'),
   modalOverlay: document.querySelector('.lightbox__overlay'), //серый фон в модалке
@@ -18,6 +19,8 @@ function onOpenModal(evt) {
   refs.modal.classList.add('is-open'); // Открытие модального окна по клику на элементе галереи.
   refs.modalImage.src = evt.target.dataset.source; // Подмена значения атрибута src элемента img.lightbox__image.
   refs.modalImage.alt = evt.target.alt;
+
+  console.log(refs.modalImage.src);
 
   window.addEventListener('keydown', onEscKeyPress);
   window.addEventListener('keydown', onArrowLeftPress);
@@ -65,14 +68,14 @@ function onArrowLeftPress(evt) {
   const isArrLeftKey = evt.code === ARR_LEFT_KEY_CODE;
 
   if (isArrLeftKey) {
-    const sources = itemsDefault.map(({ original }) => original);
+    const sources = [...refs.images].map(image => image.dataset.source);
+    console.log(refs.modalImage.src);
     let indexOfCurrentImg = sources.indexOf(refs.modalImage.src);
-
+    console.log(sources);
     if (indexOfCurrentImg === 0) {
       indexOfCurrentImg = sources.length;
     }
     refs.modalImage.src = sources[indexOfCurrentImg - 1];
-    console.log(indexOfCurrentImg);
   }
 }
 
@@ -83,7 +86,7 @@ function onArrowRightPress(evt) {
   const isArrRightKey = evt.code === ARR_RIGHT_KEY_CODE;
 
   if (isArrRightKey) {
-    const sources = itemsDefault.map(({ original }) => original);
+    const sources = [...refs.images].map(image => image.dataset.source);
     let indexOfCurrentImg = sources.indexOf(refs.modalImage.src);
 
     if (indexOfCurrentImg + 1 > sources.length - 1) {
