@@ -23,7 +23,6 @@ function createGalleryMarkup(elements) {
     href="${original}"
   >
     <img
-      content-type="image/jpeg"
       loading="lazy"
       class="gallery__image lazyload"
       src="${preview}"
