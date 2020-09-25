@@ -23,10 +23,13 @@ function createGalleryMarkup(elements) {
     href="${original}"
   >
     <img
-      class="gallery__image"
+      content-type="image/jpeg"
+      loading="lazy"
+      class="gallery__image lazyload"
       src="${preview}"
       data-source="${original}"
       alt="${description}"
+      
     />
   </a>
 </li>
@@ -123,25 +126,3 @@ function onArrowRightPress(evt) {
     console.log(indexOfCurrentImg + 1);
   }
 }
-
-/* 2 вариант создания разметки createElement
----------------------------------------------
-const createGalleryMarkup = elements => {
-  return elements.map(element => {
-    const listEl = document.createElement('li');
-    listEl.classList.add('gallery__item');
-    const linkEl = document.createElement('a');
-    linkEl.classList.add('gallery__link');
-    linkEl.href = element.original;
-    const imageEl = document.createElement('img');
-    imageEl.classList.add('gallery__image');
-    imageEl.src = element.preview;
-    imageEl.dataset.source = element.original;
-    imageEl.alt = element.description;
-    linkEl.append(imageEl);
-    listEl.append(linkEl);
-    return listEl;
-  });
-};
-const itemsOfGallery = createGalleryMarkup(itemsDefault);
-galleryList.append(...itemsOfGallery);*/
