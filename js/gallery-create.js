@@ -1,5 +1,3 @@
-import itemsDefault from './gallery-items.js';
-
 const refs = {
   galleryList: document.querySelector('.js-gallery'), //общий родитель картинок
   modal: document.querySelector('.js-lightbox'), //модальное окно
@@ -7,35 +5,6 @@ const refs = {
   modalImage: document.querySelector('.lightbox__image'),
   modalOverlay: document.querySelector('.lightbox__overlay'), //серый фон в модалке
 };
-
-// Создание и рендер разметки по массиву данных и предоставленному шаблону.
-
-const galleryMarkup = createGalleryMarkup(itemsDefault);
-refs.galleryList.insertAdjacentHTML('beforeend', galleryMarkup);
-
-function createGalleryMarkup(elements) {
-  return elements
-    .map(({ preview, original, description }) => {
-      return `
-    <li class="gallery__item">
-  <a
-    class="gallery__link"
-    href="${original}"
-  >
-    <img
-      loading="lazy"
-      class="gallery__image lazyload"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-      
-    />
-  </a>
-</li>
-    `;
-    })
-    .join('');
-}
 
 // Реализация делегирования на галерее ul.js-gallery и получение url большого изображения.
 
@@ -45,7 +14,6 @@ function onOpenModal(evt) {
   if (evt.target.nodeName !== 'IMG') {
     return;
   }
-  evt.preventDefault(); //отмена перехода по ссылке
 
   refs.modal.classList.add('is-open'); // Открытие модального окна по клику на элементе галереи.
   refs.modalImage.src = evt.target.dataset.source; // Подмена значения атрибута src элемента img.lightbox__image.
