@@ -17,6 +17,7 @@ function onOpenModal(evt) {
   }
 
   refs.modal.classList.add('is-open'); // Открытие модального окна по клику на элементе галереи.
+
   refs.modalImage.src = evt.target.dataset.source; // Подмена значения атрибута src элемента img.lightbox__image.
   refs.modalImage.alt = evt.target.alt;
 
@@ -68,14 +69,19 @@ function onArrowLeftPress(evt) {
   const isArrLeftKey = evt.code === ARR_LEFT_KEY_CODE;
 
   if (isArrLeftKey) {
-    const sources = [...refs.images].map(image => image.dataset.source);
-    console.log(refs.modalImage.src);
-    let indexOfCurrentImg = sources.indexOf(refs.modalImage.src);
-    console.log(sources);
+    const sources = [...refs.images].map(image => image.src);
+
+    let indexOfCurrentImg = sources.indexOf(
+      refs.modalImage.src.replace('_1280', '_640'),
+    );
+
     if (indexOfCurrentImg === 0) {
       indexOfCurrentImg = sources.length;
     }
-    refs.modalImage.src = sources[indexOfCurrentImg - 1];
+    refs.modalImage.src = sources[indexOfCurrentImg - 1].replace(
+      '_640',
+      '_1280',
+    );
   }
 }
 
@@ -86,13 +92,17 @@ function onArrowRightPress(evt) {
   const isArrRightKey = evt.code === ARR_RIGHT_KEY_CODE;
 
   if (isArrRightKey) {
-    const sources = [...refs.images].map(image => image.dataset.source);
-    let indexOfCurrentImg = sources.indexOf(refs.modalImage.src);
+    const sources = [...refs.images].map(image => image.src);
+    let indexOfCurrentImg = sources.indexOf(
+      refs.modalImage.src.replace('_1280', '_640'),
+    );
 
     if (indexOfCurrentImg + 1 > sources.length - 1) {
       indexOfCurrentImg = -1;
     }
-    refs.modalImage.src = sources[indexOfCurrentImg + 1];
-    console.log(indexOfCurrentImg + 1);
+    refs.modalImage.src = sources[indexOfCurrentImg + 1].replace(
+      '_640',
+      '_1280',
+    );
   }
 }
